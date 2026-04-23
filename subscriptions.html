@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Подписки</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+          <h1>Подписки</h1>
+          <a href="./index.html" class="card" style="padding: 8px 12px">На главную</a>
+        </div>
+
+        <div class="card" style="margin-top: 14px">
+          <div class="post-meta">Лента постов по вашим подпискам (категории/теги/пользователи).</div>
+          <div id="feed-error" class="alert alert-error" style="display: none; margin-top: 10px"></div>
+          <div id="feed-list" style="margin-top: 12px; display: grid; gap: 12px"></div>
+        </div>
+
+        <div class="card" style="margin-top: 14px">
+          <strong>Мои подписки</strong>
+          <div id="subs-error" class="alert alert-error" style="display: none; margin-top: 10px"></div>
+
+          <div style="display: grid; gap: 14px; margin-top: 12px">
+            <div>
+              <div class="sidebar-section-title">Пользователи</div>
+              <div id="subs-users" style="display: grid; gap: 8px"></div>
+            </div>
+            <div>
+              <div class="sidebar-section-title">Категории</div>
+              <div id="subs-categories" style="display: grid; gap: 8px"></div>
+            </div>
+            <div>
+              <div class="sidebar-section-title">Теги</div>
+              <div id="subs-tags" style="display: flex; flex-wrap: wrap; gap: 8px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./js/main.js" defer></script>
+    <script src="./js/subscriptions.js" defer></script>
+  </body>
+</html>
+

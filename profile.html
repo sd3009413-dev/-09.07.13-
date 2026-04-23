@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Профиль</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+          <h1>Профиль</h1>
+          <a href="./index.html" class="card" style="padding: 8px 12px">На главную</a>
+        </div>
+
+        <div class="card" style="margin-top: 14px">
+          <div id="profile-header-grid" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 380px); gap: 16px">
+            <div style="display: grid; gap: 14px">
+              <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap">
+                <img
+                  id="avatar"
+                  src="/uploads/default-avatar.svg"
+                  alt="avatar"
+                  style="width: 72px; height: 72px; border-radius: 999px; object-fit: cover; border: 1px solid rgba(17, 24, 39, 0.08)"
+                />
+                <div style="display: grid; gap: 6px; flex: 1">
+                  <div style="font-weight: 800; font-size: 18px" id="username">—</div>
+                  <div class="post-meta" id="email">—</div>
+                  <div id="bio-text" style="white-space: pre-wrap">Описание профиля не заполнено.</div>
+                  <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px">
+                    <button type="button" id="posts-stat-btn" class="follow-pill">Посты: <span id="posts-count">0</span></button>
+                    <button type="button" id="followers-stat-btn" class="follow-pill">Подписчики: <span id="followers-count">0</span></button>
+                    <button type="button" id="following-stat-btn" class="follow-pill">Подписки: <span id="following-count">0</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: grid; gap: 10px; align-content: start">
+              <div style="display: flex; align-items: center; gap: 10px">
+                <button
+                  type="button"
+                  id="profile-settings-btn"
+                  class="follow-pill"
+                  title="Настройки профиля"
+                  aria-label="Открыть настройки профиля"
+                  style="font-size: 18px; width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center"
+                >
+                  ⚙
+                </button>
+                <strong>Настройки профиля</strong>
+              </div>
+              <div class="post-meta">Нажмите на шестерёнку, чтобы изменить ник и аватар.</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px">
+            <strong>Описание профиля</strong>
+            <form id="bio-form" style="margin-top: 10px; display: grid; gap: 10px" novalidate>
+              <textarea id="bio-input" maxlength="500" placeholder="Расскажите о себе..."></textarea>
+              <button type="submit" id="bio-submit">Сохранить описание</button>
+              <div id="bio-error" class="alert alert-error" style="display: none"></div>
+              <div id="bio-success" class="alert alert-success" style="display: none"></div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 14px">
+          <h2 style="margin-bottom: 10px">Посты пользователя</h2>
+          <div id="user-posts-list"></div>
+          <div id="user-posts-empty" class="post-meta" style="display: none">У пользователя пока нет постов.</div>
+        </div>
+
+        <div class="card" style="margin-top: 14px">
+          <h2 style="margin-bottom: 10px">Комментарии к профилю</h2>
+          <form id="profile-comment-form" style="display: grid; gap: 10px" novalidate>
+            <textarea id="profile-comment-input" placeholder="Оставьте комментарий к профилю..."></textarea>
+            <button id="profile-comment-submit" type="submit">Отправить комментарий</button>
+            <div id="profile-comment-error" class="alert alert-error" style="display: none"></div>
+          </form>
+          <div id="profile-comments-list" style="display: grid; gap: 10px; margin-top: 12px"></div>
+          <div id="profile-comments-empty" class="post-meta" style="display: none">Комментариев пока нет.</div>
+        </div>
+      </div>
+    </main>
+
+    <div id="profile-follow-modal" class="modal hidden" style="display: none">
+      <div class="modal-content" style="max-width: 480px">
+        <div class="modal-header">
+          <h3 id="profile-follow-modal-title">Подписки</h3>
+          <span id="profile-follow-modal-close" class="modal-close">×</span>
+        </div>
+        <div id="profile-follow-modal-list" style="padding: 12px; display: grid; gap: 8px; max-height: 60vh; overflow: auto"></div>
+      </div>
+    </div>
+
+    <div id="profile-settings-modal" class="modal hidden" style="display: none">
+      <div class="modal-content" style="max-width: 560px">
+        <div class="modal-header">
+          <h3>Настройки профиля</h3>
+          <span id="profile-settings-modal-close" class="modal-close">×</span>
+        </div>
+        <div style="padding: 12px; display: grid; gap: 14px">
+          <div>
+            <strong>Цвет ника (HEX / RGB)</strong>
+            <form id="nick-color-form" style="margin-top: 10px; display: grid; gap: 10px" novalidate>
+              <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+                <input type="color" id="nick-color-picker" value="#ffffff" style="width:64px; height:40px; padding:4px" />
+                <input type="text" id="nick-color-input" placeholder="#4f46e5 или rgb(79,70,229)" />
+              </div>
+              <button type="submit" id="nick-color-submit">Сохранить цвет ника</button>
+              <div id="nick-color-error" class="alert alert-error" style="display: none"></div>
+              <div id="nick-color-success" class="alert alert-success" style="display: none"></div>
+            </form>
+          </div>
+
+          <div>
+            <strong>Сменить ник</strong>
+            <form id="username-form" style="margin-top: 10px; display: grid; gap: 10px" novalidate>
+              <input type="text" name="username" id="username-input" minlength="3" required />
+              <button type="submit" id="username-submit">Сохранить ник</button>
+              <div id="username-error" class="alert alert-error" style="display: none"></div>
+              <div id="username-success" class="alert alert-success" style="display: none"></div>
+            </form>
+          </div>
+
+          <div>
+            <strong>Сменить аватар</strong>
+            <form id="avatar-form" style="margin-top: 10px; display: grid; gap: 10px" novalidate>
+              <input type="file" name="avatar" id="avatar-file" accept="image/*" />
+              <button type="submit" id="avatar-submit">Загрузить</button>
+              <div id="avatar-error" class="alert alert-error" style="display: none"></div>
+              <div id="avatar-success" class="alert alert-success" style="display: none"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/main.js" defer></script>
+    <script src="./js/profile.js" defer></script>
+  </body>
+</html>
+

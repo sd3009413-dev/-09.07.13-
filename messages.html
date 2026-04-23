@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Сообщения</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+          <h1>Сообщения</h1>
+          <a href="./index.html" class="card" style="padding: 8px 12px">На главную</a>
+        </div>
+
+        <div
+          id="messages-layout"
+          class="card"
+          style="
+            margin-top: 14px;
+            padding: 0;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            min-height: 70vh;
+          "
+        >
+          <!-- Left: conversations -->
+          <aside id="dialogs-pane" style="border-right: 1px solid rgba(17, 24, 39, 0.08); background: #fff">
+            <div style="padding: 14px 14px 10px">
+              <strong>Диалоги</strong>
+              <div class="dialogs-search-wrap" style="margin-top: 10px">
+                <input id="dialogs-search" type="text" placeholder="Поиск пользователей и диалогов..." />
+              </div>
+              <div id="users-search-results" class="dialogs-users-results" style="display: none"></div>
+              <div id="conversations-error" class="alert alert-error" style="display: none; margin-top: 10px"></div>
+            </div>
+            <div id="conversations-list" style="display: grid"></div>
+          </aside>
+
+          <!-- Right: chat -->
+          <section id="chat-pane" style="display: grid; grid-template-rows: auto 1fr auto; background: #f9fafb">
+            <header id="chat-pane-header" style="padding: 12px 14px; border-bottom: 1px solid rgba(17, 24, 39, 0.08); background: #fff">
+              <div id="chat-title" class="post-title" style="margin: 0; font-size: 16px">Выберите диалог</div>
+              <div id="chat-subtitle" class="post-meta"></div>
+              <div id="chat-error" class="alert alert-error" style="display: none; margin-top: 10px"></div>
+            </header>
+
+            <div id="messages-list" style="padding: 14px; overflow: auto; display: grid; gap: 10px"></div>
+
+            <footer id="chat-pane-footer" style="padding: 12px 14px; border-top: 1px solid rgba(17, 24, 39, 0.08); background: #fff">
+              <form id="send-form" style="display: grid; gap: 10px" novalidate>
+                <input type="hidden" name="receiverId" id="receiverId" />
+                <label>
+                  Сообщение
+                  <textarea name="content" id="content" placeholder="Напишите сообщение..."></textarea>
+                </label>
+                <label>
+                  Вложения (до 5)
+                  <input name="attachments" id="attachments" type="file" multiple />
+                </label>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap">
+                  <button id="send-btn" type="submit">Отправить</button>
+                  <span class="post-meta">Автообновление: каждые 5 секунд</span>
+                </div>
+                <div id="send-error" class="alert alert-error" style="display: none"></div>
+              </form>
+            </footer>
+          </section>
+        </div>
+      </div>
+    </main>
+    <script src="./js/main.js" defer></script>
+    <script src="./js/messages.js" defer></script>
+  </body>
+</html>
